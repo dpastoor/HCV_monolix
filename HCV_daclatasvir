@@ -1,0 +1,36 @@
+; Guedj Daclatasvir HCV model
+
+<MODEL>
+[LONGITUDINAL]
+input = {V0, c, rho, eps_s, eps_alpha, alpha, delta, mu, k, T0}
+
+EQUATION:
+t0 = 0
+V_0 = V0
+alpha_tilde = alpha*(1 - eps_alpha)
+rho_tilde = rho*(1-eps_s)
+lambda_tilde = rho*(1-eps_s) + k*mu
+N = rho*(alpha + delta)/(delta*(rho+mu+delta))
+ddt_V = V0*(-c*exp(-c*(t-T0))) + (rho_tilde*c/N)*((alpha_tilde/(lambda_tilde*delta*(delta-c))*(-c*exp(-c*(t-T0))+delta*exp(-delta*(t-T0)))))+ (1/(lambda_tilde + delta - c)*(N/rho-alpha_tilde/(lambda_tilde*delta))*(-c*exp(-c*(t-T0))+(lambda_tilde + delta)*exp(-(lambda_tilde+delta)*(t-T0))))
+
+Vout = max(V, 0)
+LVL = max(log10(V), 0)
+
+<PARAMETER>
+V0 = 6
+c = 22.3
+rho = 8.18
+eps_s = 0.998
+eps_alpha = 0.99
+alpha = 40
+delta = 1.1
+mu = 1
+k = 1.46
+T0 = 1
+
+
+<OUTPUT>
+;list = {LVL={xlabel='time(day)', ylabel='log10_viral_load'}}
+
+list = {Vout={xlabel='time(day)', ylabel='viral_load'}}
+grid = -1:0.01:2
