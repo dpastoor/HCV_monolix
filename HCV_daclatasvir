@@ -11,6 +11,8 @@ alpha_tilde = alpha*(1 - eps_alpha)
 rho_tilde = rho*(1-eps_s)
 lambda_tilde = rho*(1-eps_s) + k*mu
 N = rho*(alpha + delta)/(delta*(rho+mu+delta))
+
+; attempt to differentiate existing V(t) equation from publication
 ddt_V = V0*(-c*exp(-c*(t-T0))) + (rho_tilde*c/N)*((alpha_tilde/(lambda_tilde*delta*(delta-c))*(-c*exp(-c*(t-T0))+delta*exp(-delta*(t-T0)))))+ (1/(lambda_tilde + delta - c)*(N/rho-alpha_tilde/(lambda_tilde*delta))*(-c*exp(-c*(t-T0))+(lambda_tilde + delta)*exp(-(lambda_tilde+delta)*(t-T0))))
 
 Vout = max(V, 0)
